@@ -16,6 +16,9 @@ function checkReply(text: string): string[] {
     issues.push(`reply is ${text.length} characters, over the ${LIMIT} limit`);
   }
   if (text.includes("\n")) issues.push("reply must be a single line");
+  if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(text)) {
+    issues.push("reply contains control characters");
+  }
   if (text.trim() !== text) {
     issues.push("reply has leading or trailing whitespace");
   }
